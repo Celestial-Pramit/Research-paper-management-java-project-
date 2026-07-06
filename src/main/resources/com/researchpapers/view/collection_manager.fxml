@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.researchpapers.controller.CollectionController"
+    stylesheets="@../css/style.css"
+    styleClass="dash-root"
+    prefWidth="1280"
+    prefHeight="720">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <VBox prefWidth="185" styleClass="sidebar-panel"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0">
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-branding">
+            <StackPane styleClass="brand-icon-box">
+                <Label text="RP" styleClass="brand-icon-text" />
+            </StackPane>
+            <Label text="RPMS" styleClass="brand-label" />
+        </HBox>
+        <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+        <VBox spacing="2" styleClass="sidebar-nav">
+            <Button fx:id="btnDashboard" text="DASHBOARD" styleClass="nav-item" onAction="#dashboardEvent" maxWidth="Infinity">
+                <graphic><Label text="▦" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnPaperLibrary" text="PAPER LIBRARY" styleClass="nav-item" onAction="#paperLibraryEvent" maxWidth="Infinity">
+                <graphic><Label text="▢" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnCollections" text="COLLECTIONS" styleClass="nav-item nav-active" onAction="#collectionsEvent" maxWidth="Infinity">
+                <graphic><Label text="⊞" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+        <Region VBox.vgrow="ALWAYS" />
+        <VBox styleClass="sidebar-logout">
+            <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+            <Button fx:id="btnLogout" text="LOGOUT" styleClass="nav-item nav-logout" onAction="#logoutEvent" maxWidth="Infinity">
+                <graphic><Label text="⏻" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+    </VBox>
+
+    <!-- ═══ TOPBAR ═══ -->
+    <fx:include source="topbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="0" />
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <ScrollPane fitToWidth="true" styleClass="content-scroll"
+                AnchorPane.topAnchor="56"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="185"
+                AnchorPane.rightAnchor="0">
+        <VBox spacing="24" styleClass="main-content">
+
+            <!-- Page Header -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="2">
+                    <Label text="Collection Manager" styleClass="page-heading" />
+                    <Label text="Organize your papers into custom collections" styleClass="page-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnRefreshCollections" text="↻ Refresh" styleClass="refresh-btn" onAction="#refreshCollectionsEvent" />
+            </HBox>
+
+            <!-- Two-panel workspace -->
+            <HBox spacing="16" styleClass="collection-workspace">
+
+                <!-- LEFT PANEL: Collections -->
+                <VBox styleClass="collection-panel" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
+                        <Label text="COLLECTIONS" styleClass="section-label" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblCollectionCount" text="0" styleClass="panel-count" />
+                    </HBox>
+                    <HBox spacing="8" styleClass="create-collection-row">
+                        <TextField fx:id="txtCollectionName" promptText="New collection name..." styleClass="filter-input" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnCreateCollection" text="+ Create" styleClass="add-paper-btn" onAction="#createCollectionEvent" />
+                    </HBox>
+                    <ListView fx:id="lstCollections" styleClass="collection-list" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" spacing="6" styleClass="collection-actions">
+                        <Button fx:id="btnDeleteCollection" text="🗑 Delete" styleClass="collection-delete-btn" onAction="#deleteCollectionEvent" />
+                    </HBox>
+                </VBox>
+
+                <!-- RIGHT PANEL: Paper Management -->
+                <VBox styleClass="collection-panel" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
+                        <Label text="AVAILABLE PAPERS" styleClass="section-label" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblAvailableCount" text="0" styleClass="panel-count" />
+                    </HBox>
+                    <TableView fx:id="tblAvailablePapers" styleClass="dash-table coll-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colAvailableTitle" text="TITLE" prefWidth="200" />
+                            <TableColumn fx:id="colAvailableAuthors" text="AUTHORS" prefWidth="150" />
+                            <TableColumn fx:id="colAvailableYear" text="YEAR" prefWidth="70" />
+                        </columns>
+                    </TableView>
+
+                    <!-- Move buttons -->
+                    <HBox alignment="CENTER" spacing="8" styleClass="move-buttons">
+                        <Button fx:id="btnAddToCollection" text="▶ Add to Collection →" styleClass="move-btn move-add" onAction="#addToCollectionEvent" maxWidth="Infinity" />
+                        <Button fx:id="btnRemoveFromCollection" text="← Remove from Collection ◀" styleClass="move-btn move-remove" onAction="#removeFromCollectionEvent" maxWidth="Infinity" />
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="panel-header">
+                        <Label text="COLLECTION PAPERS" styleClass="section-label" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblCollectionPaperCount" text="0" styleClass="panel-count" />
+                    </HBox>
+                    <TableView fx:id="tblCollectionPapers" styleClass="dash-table coll-table" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colCollectionTitle" text="TITLE" prefWidth="200" />
+                            <TableColumn fx:id="colCollectionAuthors" text="AUTHORS" prefWidth="150" />
+                            <TableColumn fx:id="colCollectionYear" text="YEAR" prefWidth="70" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+
+</AnchorPane>
