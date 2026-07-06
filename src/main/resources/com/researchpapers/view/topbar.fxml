@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="56" styleClass="topbar" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.researchpapers.controller.TopbarController">
+    <Button text="⟵" styleClass="topbar-icon-btn topbar-chevron" />
+    <StackPane styleClass="topbar-logo-box">
+        <Label text="RP" styleClass="topbar-logo-text" />
+    </StackPane>
+    <Label text="RPMS" styleClass="topbar-brand-label" />
+    <Region HBox.hgrow="ALWAYS" />
+    <StackPane>
+        <Button fx:id="btnNotification" text="🔔" styleClass="topbar-icon-btn" onAction="#notificationEvent" />
+        <Region styleClass="notification-dot" StackPane.alignment="TOP_RIGHT" />
+    </StackPane>
+    <StackPane styleClass="user-avatar">
+        <Label fx:id="lblAvatarInitials" text="JD" styleClass="avatar-text" />
+    </StackPane>
+    <VBox spacing="0" styleClass="user-info">
+        <Label fx:id="lblUserName" text="John Doe" styleClass="user-name" />
+        <Label fx:id="lblUserRole" text="USER" styleClass="user-role" />
+    </VBox>
+    <Button fx:id="btnRoleDropdown" text="▼" styleClass="topbar-icon-btn dropdown-chevron" onAction="#roleDropdownEvent" />
+</HBox>
