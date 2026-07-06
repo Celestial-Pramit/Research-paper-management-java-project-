@@ -1,0 +1,44 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+*.war
+*.ear
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+.settings/
+
+# Eclipse
+.classpath
+.project
+bin/
+.settings/
+
+# NetBeans
+nbproject/
+nb-configuration.xml
+
+# Java
+*.class
+*.jar
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment
+.env
+*.log
