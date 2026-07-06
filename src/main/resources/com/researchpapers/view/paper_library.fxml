@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.researchpapers.controller.PaperLibraryController"
+    stylesheets="@../css/style.css"
+    styleClass="dash-root"
+    prefWidth="1280"
+    prefHeight="720">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <VBox prefWidth="185" styleClass="sidebar-panel"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0">
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-branding">
+            <StackPane styleClass="brand-icon-box">
+                <Label text="RP" styleClass="brand-icon-text" />
+            </StackPane>
+            <Label text="RPMS" styleClass="brand-label" />
+        </HBox>
+        <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+        <VBox spacing="2" styleClass="sidebar-nav">
+            <Button fx:id="btnDashboard" text="DASHBOARD" styleClass="nav-item" onAction="#dashboardEvent" maxWidth="Infinity">
+                <graphic><Label text="▦" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnPaperLibrary" text="PAPER LIBRARY" styleClass="nav-item nav-active" onAction="#paperLibraryEvent" maxWidth="Infinity">
+                <graphic><Label text="▢" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnCollections" text="COLLECTIONS" styleClass="nav-item" onAction="#collectionsEvent" maxWidth="Infinity">
+                <graphic><Label text="⊞" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+        <Region VBox.vgrow="ALWAYS" />
+        <VBox styleClass="sidebar-logout">
+            <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+            <Button fx:id="btnLogout" text="LOGOUT" styleClass="nav-item nav-logout" onAction="#logoutEvent" maxWidth="Infinity">
+                <graphic><Label text="⏻" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+    </VBox>
+
+    <!-- ═══ TOPBAR ═══ -->
+    <fx:include source="topbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="0" />
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <ScrollPane fitToWidth="true" styleClass="content-scroll"
+                AnchorPane.topAnchor="56"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="185"
+                AnchorPane.rightAnchor="0">
+        <VBox spacing="24" styleClass="main-content">
+
+            <!-- Page Header -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="2">
+                    <Label text="Paper Library" styleClass="page-heading" />
+                    <Label text="Browse and manage your research papers" styleClass="page-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnAddPaper" text="+ Add Paper" styleClass="add-paper-btn" onAction="#addPaperEvent" />
+            </HBox>
+
+            <!-- Filters Card -->
+            <HBox spacing="12" styleClass="filters-card" alignment="CENTER_LEFT">
+                <StackPane styleClass="filter-search">
+                    <Label text="🔍" styleClass="search-icon" />
+                    <TextField fx:id="txtSearch" promptText="Search by title, author, keyword..." styleClass="filter-input" />
+                </StackPane>
+                <ComboBox fx:id="cmbFilterStatus" promptText="All" styleClass="filter-select" prefWidth="140" />
+                <ComboBox fx:id="cmbFilterCategory" promptText="All" styleClass="filter-select" prefWidth="140" />
+                <ComboBox fx:id="cmbFilterYear" promptText="All" styleClass="filter-select" prefWidth="120" />
+                <Button fx:id="btnClearFilters" text="Clear Filters" styleClass="clear-filter-btn" onAction="#clearFiltersEvent" />
+            </HBox>
+
+            <!-- Table Card -->
+            <VBox styleClass="table-card">
+                <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                    <Label fx:id="lblPaperCount" text="ALL PAPERS (0)" styleClass="section-label" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnExport" text="⬇ Export" styleClass="export-btn" onAction="#exportEvent" />
+                </HBox>
+                <TableView fx:id="tblPapers" styleClass="dash-table">
+                    <columns>
+                        <TableColumn fx:id="colTitle" text="TITLE" prefWidth="280" />
+                        <TableColumn fx:id="colAuthors" text="AUTHORS" prefWidth="180" />
+                        <TableColumn fx:id="colYear" text="YEAR" prefWidth="80" />
+                        <TableColumn fx:id="colStatus" text="STATUS" prefWidth="110" />
+                        <TableColumn fx:id="colCategory" text="CATEGORY" prefWidth="110" />
+                        <TableColumn fx:id="colRating" text="RATING" prefWidth="100" />
+                        <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="200" />
+                    </columns>
+                </TableView>
+
+                <!-- Pagination -->
+                <HBox alignment="CENTER" spacing="4" styleClass="pagination-bar">
+                    <Button fx:id="btnPreviousPage" text="← Prev" styleClass="page-btn page-prev" onAction="#previousPageEvent" />
+                    <Label fx:id="lblPageInfo" text="Page 0 of 0" styleClass="page-info-label" />
+                    <Button fx:id="btnNextPage" text="Next →" styleClass="page-btn page-next" onAction="#nextPageEvent" />
+                </HBox>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+</AnchorPane>
