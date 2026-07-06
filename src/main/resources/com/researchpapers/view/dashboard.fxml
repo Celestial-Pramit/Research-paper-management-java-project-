@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.researchpapers.controller.DashboardController"
+    stylesheets="@../css/style.css"
+    styleClass="dash-root"
+    prefWidth="1280"
+    prefHeight="720">
+
+    <!-- ═══ SIDEBAR ═══ (anchored left, full height) -->
+    <VBox prefWidth="185" styleClass="sidebar-panel"
+          AnchorPane.topAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0">
+
+        <!-- Branding -->
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-branding">
+            <StackPane styleClass="brand-icon-box">
+                <Label text="RP" styleClass="brand-icon-text" />
+            </StackPane>
+            <Label text="RPMS" styleClass="brand-label" />
+        </HBox>
+        <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+
+        <!-- Nav Items -->
+        <VBox spacing="2" styleClass="sidebar-nav">
+            <Button fx:id="btnDashboard" text="DASHBOARD" styleClass="nav-item nav-active" onAction="#dashboardEvent" maxWidth="Infinity">
+                <graphic><Label text="▦" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnPaperLibrary" text="PAPER LIBRARY" styleClass="nav-item" onAction="#paperLibraryEvent" maxWidth="Infinity">
+                <graphic><Label text="▢" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnCollections" text="COLLECTIONS" styleClass="nav-item" onAction="#collectionsEvent" maxWidth="Infinity">
+                <graphic><Label text="⊞" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <!-- Logout -->
+        <VBox styleClass="sidebar-logout">
+            <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+            <Button fx:id="btnLogout" text="LOGOUT" styleClass="nav-item nav-logout" onAction="#logoutEvent" maxWidth="Infinity">
+                <graphic><Label text="⏻" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+    </VBox>
+
+    <!-- ═══ TOPBAR ═══ -->
+    <fx:include source="topbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="0" />
+
+    <!-- ═══ MAIN CONTENT ═══ (anchored below topbar, right of sidebar) -->
+    <ScrollPane fitToWidth="true" styleClass="content-scroll"
+                AnchorPane.topAnchor="56"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="185"
+                AnchorPane.rightAnchor="0">
+        <VBox spacing="24" styleClass="main-content">
+
+            <!-- Heading row -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="2">
+                    <Label text="Dashboard" styleClass="page-heading" />
+                    <Label text="Overview of your research activity" styleClass="page-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnRefresh" text="↻ Refresh" styleClass="refresh-btn" onAction="#refreshEvent" />
+            </HBox>
+
+            <!-- Stat Cards -->
+            <HBox spacing="16" styleClass="stat-cards-row">
+                <VBox alignment="CENTER" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-box stat-orange">
+                        <Label text="📄" styleClass="stat-icon" />
+                    </StackPane>
+                    <Label fx:id="lblTotalPapers" text="0" styleClass="stat-value" />
+                    <Label text="Total Papers" styleClass="stat-label" />
+                </VBox>
+                <VBox alignment="CENTER" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-box stat-blue">
+                        <Label text="📖" styleClass="stat-icon" />
+                    </StackPane>
+                    <Label fx:id="lblReadingCount" text="0" styleClass="stat-value" />
+                    <Label text="Currently Reading" styleClass="stat-label" />
+                </VBox>
+                <VBox alignment="CENTER" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-box stat-green">
+                        <Label text="✓" styleClass="stat-icon" />
+                    </StackPane>
+                    <Label fx:id="lblCompletedCount" text="0" styleClass="stat-value" />
+                    <Label text="Completed" styleClass="stat-label" />
+                </VBox>
+                <VBox alignment="CENTER" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                    <StackPane styleClass="stat-icon-box stat-red-orange">
+                        <Label text="★" styleClass="stat-icon" />
+                    </StackPane>
+                    <Label fx:id="lblFavoriteCount" text="0" styleClass="stat-value" />
+                    <Label text="Favorites" styleClass="stat-label" />
+                </VBox>
+            </HBox>
+
+            <!-- Recent Papers Table Card -->
+            <VBox styleClass="table-card">
+                <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                    <Label text="RECENT PAPERS" styleClass="section-label" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="btnAddPaper" text="+ Add New Paper" styleClass="add-paper-btn" onAction="#addPaperEvent" />
+                </HBox>
+                <TableView fx:id="tblRecentPapers" styleClass="dash-table">
+                    <columns>
+                        <TableColumn fx:id="colRecentTitle" text="Title" prefWidth="250" />
+                        <TableColumn fx:id="colRecentAuthors" text="Authors" prefWidth="180" />
+                        <TableColumn fx:id="colRecentYear" text="Year" prefWidth="80" />
+                        <TableColumn fx:id="colRecentStatus" text="Status" prefWidth="110" />
+                        <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="140" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Charts Row -->
+            <HBox spacing="16" styleClass="charts-row">
+                <VBox styleClass="chart-card" HBox.hgrow="ALWAYS">
+                    <Label text="PAPERS BY YEAR" styleClass="section-label" />
+                    <BarChart fx:id="barChartPapersByYear" styleClass="bar-chart" prefHeight="220">
+                        <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                        <yAxis><NumberAxis side="LEFT" /></yAxis>
+                    </BarChart>
+                </VBox>
+                <VBox styleClass="chart-card" HBox.hgrow="ALWAYS">
+                    <Label text="READING PROGRESS" styleClass="section-label" />
+                    <PieChart fx:id="pieChartReadingProgress" styleClass="pie-chart" prefHeight="220" />
+                </VBox>
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+
+</AnchorPane>
