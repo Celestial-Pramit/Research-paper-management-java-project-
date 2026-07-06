@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.researchpapers.controller.RegisterController"
+    stylesheets="@../css/style.css"
+    styleClass="login-root"
+    prefWidth="1280"
+    prefHeight="720">
+
+    <!-- ═══ LEFT BRANDING PANEL (55%) ═══ -->
+    <VBox styleClass="login-left" HBox.hgrow="ALWAYS">
+        <Region VBox.vgrow="ALWAYS" />
+        <VBox alignment="CENTER" spacing="0" styleClass="login-branding">
+            <StackPane styleClass="brand-hero">
+                <Label text="RP" styleClass="brand-hero-text" />
+            </StackPane>
+            <Label text="Research Papers" styleClass="brand-hero-title" />
+            <Label text="Management System" styleClass="brand-hero-sub" />
+            <VBox styleClass="brand-divider" maxWidth="60" />
+            <Label text="Organize, manage, and discover academic research" styleClass="brand-desc" wrapText="true" textAlignment="CENTER" />
+            <Label text="with ease and efficiency" styleClass="brand-desc" wrapText="true" textAlignment="CENTER" />
+        </VBox>
+        <Region VBox.vgrow="ALWAYS" />
+        <Label text="© 2026 RPMS — Research Paper Management System" styleClass="brand-footer" />
+    </VBox>
+
+    <!-- ═══ RIGHT FORM PANEL (45%) ═══ -->
+    <VBox fx:id="loginRightPanel" styleClass="login-right" alignment="CENTER" HBox.hgrow="ALWAYS">
+        <VBox fx:id="cardBody" spacing="16" styleClass="login-form-container" maxWidth="380">
+
+            <!-- Heading -->
+            <VBox spacing="4">
+                <Label text="Create Account" styleClass="form-heading" />
+                <Label text="Join Research Paper Management System" styleClass="form-subtitle" />
+            </VBox>
+
+            <!-- Feedback message -->
+            <Label fx:id="lblMessage" text="" styleClass="message-label" wrapText="true" maxWidth="Infinity" managed="false" visible="false" />
+
+            <!-- Full Name -->
+            <VBox spacing="6">
+                <Label text="Full Name" styleClass="field-label" />
+                <TextField fx:id="txtFullName" promptText="Enter your full name" styleClass="form-field" />
+            </VBox>
+
+            <!-- Username -->
+            <VBox spacing="6">
+                <Label text="Username" styleClass="field-label" />
+                <TextField fx:id="txtUsername" promptText="Choose a username" styleClass="form-field" />
+            </VBox>
+
+            <!-- Email -->
+            <VBox spacing="6">
+                <Label text="Email Address" styleClass="field-label" />
+                <TextField fx:id="txtEmail" promptText="Enter your email address" styleClass="form-field" />
+            </VBox>
+
+            <!-- Password -->
+            <VBox spacing="6">
+                <Label text="Password" styleClass="field-label" />
+                <StackPane styleClass="password-wrapper">
+                    <PasswordField fx:id="txtPassword" promptText="Create a password" styleClass="form-field" />
+                    <TextField fx:id="txtPasswordVisible" promptText="Create a password" styleClass="form-field" visible="false" managed="false" />
+                    <Button fx:id="btnTogglePassword" styleClass="eye-button" onAction="#togglePasswordVisibility" />
+                </StackPane>
+            </VBox>
+
+            <!-- Confirm Password -->
+            <VBox spacing="6">
+                <Label text="Confirm Password" styleClass="field-label" />
+                <StackPane styleClass="password-wrapper">
+                    <PasswordField fx:id="txtConfirmPassword" promptText="Confirm your password" styleClass="form-field" />
+                    <TextField fx:id="txtConfirmPasswordVisible" promptText="Confirm your password" styleClass="form-field" visible="false" managed="false" />
+                    <Button fx:id="btnToggleConfirmPassword" styleClass="eye-button" onAction="#toggleConfirmPasswordVisibility" />
+                </StackPane>
+            </VBox>
+
+            <!-- Register button -->
+            <Button fx:id="btnRegister" text="Create Account" onAction="#registerEvent" styleClass="login-button" maxWidth="Infinity" defaultButton="true" prefHeight="44" />
+
+            <!-- Divider text -->
+            <HBox alignment="CENTER" spacing="12">
+                <VBox styleClass="or-line" HBox.hgrow="ALWAYS" />
+                <Label text="or" styleClass="or-text" />
+                <VBox styleClass="or-line" HBox.hgrow="ALWAYS" />
+            </HBox>
+
+            <!-- Back to Login -->
+            <Button fx:id="btnBackToLogin" text="Already have an account? Sign In" onAction="#backToLoginEvent" styleClass="register-button" maxWidth="Infinity" prefHeight="44" />
+
+            <!-- Dark mode row -->
+            <HBox alignment="CENTER" spacing="8">
+                <Region HBox.hgrow="ALWAYS" />
+                <ToggleButton fx:id="toggleDarkMode" styleClass="dark-toggle" onAction="#darkModeEvent" />
+                <Label text="Dark Mode" styleClass="dark-mode-label" />
+            </HBox>
+
+        </VBox>
+    </VBox>
+
+</HBox>
