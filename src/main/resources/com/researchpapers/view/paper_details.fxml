@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.researchpapers.controller.PaperDetailsController"
+    stylesheets="@../css/style.css"
+    styleClass="dash-root"
+    prefWidth="1280"
+    prefHeight="720">
+
+    <!-- SIDEBAR -->
+    <VBox prefWidth="185" styleClass="sidebar-panel"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-branding">
+            <StackPane styleClass="brand-icon-box"><Label text="RP" styleClass="brand-icon-text" /></StackPane>
+            <Label text="RPMS" styleClass="brand-label" />
+        </HBox>
+        <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+        <VBox spacing="2" styleClass="sidebar-nav">
+            <Button fx:id="btnDashboard" text="DASHBOARD" styleClass="nav-item" onAction="#dashboardEvent" maxWidth="Infinity">
+                <graphic><Label text="▦" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnPaperLibrary" text="PAPER LIBRARY" styleClass="nav-item" onAction="#paperLibraryEvent" maxWidth="Infinity">
+                <graphic><Label text="▢" styleClass="nav-icon" /></graphic>
+            </Button>
+            <Button fx:id="btnCollections" text="COLLECTIONS" styleClass="nav-item" onAction="#collectionsEvent" maxWidth="Infinity">
+                <graphic><Label text="⊞" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+        <Region VBox.vgrow="ALWAYS" />
+        <VBox styleClass="sidebar-logout">
+            <VBox styleClass="sidebar-divider" maxWidth="Infinity" />
+            <Button fx:id="btnLogout" text="LOGOUT" styleClass="nav-item nav-logout" onAction="#logoutEvent" maxWidth="Infinity">
+                <graphic><Label text="⏻" styleClass="nav-icon" /></graphic>
+            </Button>
+        </VBox>
+    </VBox>
+
+    <!-- TOPBAR -->
+    <fx:include source="topbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="0" />
+
+    <!-- CONTENT -->
+    <ScrollPane fitToWidth="true" styleClass="content-scroll"
+                AnchorPane.topAnchor="56" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="185" AnchorPane.rightAnchor="0">
+        <VBox spacing="24" styleClass="main-content">
+
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="2">
+                    <Label text="Paper Details" styleClass="page-heading" />
+                    <Label text="View and manage paper information" styleClass="page-subtitle" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnBackToLibrary" text="← Back to Library" styleClass="refresh-btn" onAction="#backToLibraryEvent" />
+            </HBox>
+
+            <!-- Paper Info Card -->
+            <VBox styleClass="table-card">
+                <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                    <Label text="PAPER INFORMATION" styleClass="section-label" />
+                </HBox>
+                <VBox spacing="6" styleClass="detail-grid">
+                    <HBox spacing="16">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <HBox><Label text="ID:" styleClass="detail-label" /><Label fx:id="lblPaperId" text="—" styleClass="detail-value" /></HBox>
+                            <HBox><Label text="Title:" styleClass="detail-label" /><Label fx:id="lblTitle" text="—" styleClass="detail-value" wrapText="true" /></HBox>
+                            <HBox><Label text="Authors:" styleClass="detail-label" /><Label fx:id="lblAuthors" text="—" styleClass="detail-value" /></HBox>
+                            <HBox><Label text="Conference:" styleClass="detail-label" /><Label fx:id="lblConference" text="—" styleClass="detail-value" /></HBox>
+                            <HBox><Label text="Journal:" styleClass="detail-label" /><Label fx:id="lblJournal" text="—" styleClass="detail-value" /></HBox>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <HBox><Label text="Year:" styleClass="detail-label" /><Label fx:id="lblYear" text="—" styleClass="detail-value" /></HBox>
+                            <HBox><Label text="DOI:" styleClass="detail-label" /><Label fx:id="lblDoi" text="—" styleClass="detail-value" wrapText="true" /></HBox>
+                            <HBox><Label text="Keywords:" styleClass="detail-label" /><Label fx:id="lblKeywords" text="—" styleClass="detail-value" wrapText="true" /></HBox>
+                            <HBox><Label text="PDF Path:" styleClass="detail-label" /><Label fx:id="lblPdfPath" text="—" styleClass="detail-value" wrapText="true" /></HBox>
+                            <HBox><Label text="Upload Date:" styleClass="detail-label" /><Label fx:id="lblUploadDate" text="—" styleClass="detail-value" /></HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- Abstract Card -->
+            <VBox styleClass="table-card">
+                <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                    <Label text="ABSTRACT" styleClass="section-label" />
+                </HBox>
+                <VBox styleClass="detail-pad">
+                    <TextArea fx:id="txtAbstractDetails" editable="false" wrapText="true" styleClass="detail-abstract" />
+                </VBox>
+            </VBox>
+
+            <!-- Notes + Reading Progress row -->
+            <HBox spacing="16">
+                <!-- Notes -->
+                <VBox styleClass="table-card" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                        <Label text="NOTES" styleClass="section-label" />
+                    </HBox>
+                    <VBox spacing="12" styleClass="detail-pad">
+                        <TableView fx:id="tblNotes" styleClass="dash-table" prefHeight="140">
+                            <columns>
+                                <TableColumn fx:id="colNoteText" text="NOTE" prefWidth="220" />
+                                <TableColumn fx:id="colNotePage" text="PAGE" prefWidth="70" />
+                                <TableColumn fx:id="colNoteDate" text="DATE" prefWidth="100" />
+                            </columns>
+                        </TableView>
+                        <TextArea fx:id="txtNewNote" promptText="New note..." styleClass="filter-input" prefHeight="60" />
+                        <HBox spacing="8">
+                            <TextField fx:id="txtPageNumber" promptText="Page #" styleClass="filter-input" prefWidth="120" />
+                            <Button fx:id="btnAddNote" text="+ Add Note" styleClass="add-paper-btn" onAction="#addNoteEvent" />
+                            <Button fx:id="btnDeleteNote" text="Delete" styleClass="collection-delete-btn" onAction="#deleteNoteEvent" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Reading Progress -->
+                <VBox styleClass="table-card" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" styleClass="table-card-header">
+                        <Label text="READING PROGRESS" styleClass="section-label" />
+                    </HBox>
+                    <VBox spacing="12" styleClass="detail-pad">
+                        <HBox spacing="8">
+                            <ComboBox fx:id="cmbReadingStatus" promptText="Status" styleClass="filter-select" prefWidth="150" />
+                            <TextField fx:id="txtLastPage" promptText="Last Page" styleClass="filter-input" prefWidth="120" />
+                            <ComboBox fx:id="cmbRating" promptText="Rating" styleClass="filter-select" prefWidth="120" />
+                            <CheckBox fx:id="chkFavorite" text="Favorite" styleClass="detail-check" />
+                        </HBox>
+                        <HBox spacing="8">
+                            <Button fx:id="btnSaveProgress" text="Save Progress" styleClass="add-paper-btn" onAction="#saveProgressEvent" />
+                            <Button fx:id="btnMarkCompleted" text="✓ Mark Completed" styleClass="move-add" onAction="#markCompletedEvent" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <!-- Action buttons -->
+            <HBox spacing="12">
+                <Button fx:id="btnOpenPdf" text="📄 Open PDF" styleClass="login-button" onAction="#openPdfEvent" />
+                <Button fx:id="btnExportCitation" text="📋 Export Citation" styleClass="refresh-btn" onAction="#exportCitationEvent" />
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+
+</AnchorPane>
