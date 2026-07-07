@@ -42,3 +42,6 @@ Desktop.ini
 # Environment
 .env
 *.log
+
+# AI context
+AI_FXML_DESIGN_CONTEXT.md

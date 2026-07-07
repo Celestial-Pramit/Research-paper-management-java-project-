@@ -28,18 +28,42 @@ Login accepts **username OR email** in the username field.
 
 ## Build & Run
 
+### 0. Download Dependencies (First Time Only)
+
+On a new PC, download JavaFX 21 and MySQL Connector JARs into the local Maven repository:
+
 ```powershell
-# 1. Clean compile
+# Option A — Using Maven (recommended, requires Maven installed):
+mvn dependency:copy-dependencies -DoutputDirectory="$env:USERPROFILE\.m2\repository"
+
+# Option B — Manual download URLs (Java 21, Windows x64):
+#   javafx-base:     https://repo1.maven.org/maven2/org/openjfx/javafx-base/21/javafx-base-21-win.jar
+#   javafx-controls: https://repo1.maven.org/maven2/org/openjfx/javafx-controls/21/javafx-controls-21-win.jar
+#   javafx-fxml:     https://repo1.maven.org/maven2/org/openjfx/javafx-fxml/21/javafx-fxml-21-win.jar
+#   javafx-graphics: https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/21/javafx-graphics-21-win.jar
+#   mysql-connector: https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.2.0/mysql-connector-j-8.2.0.jar
+# Save them to: $env:USERPROFILE\.m2\repository\org\openjfx\... and ...\com\mysql\...
+```
+
+### 1. Compile
+
+```powershell
 Remove-Item -Path target\classes -Recurse -Force -ErrorAction SilentlyContinue
 $fxBase = "$env:USERPROFILE\.m2\repository\org\openjfx"
 $mysql = "$env:USERPROFILE\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar"
 $mp = "$fxBase\javafx-base\21\javafx-base-21-win.jar;$fxBase\javafx-controls\21\javafx-controls-21-win.jar;$fxBase\javafx-fxml\21\javafx-fxml-21-win.jar;$fxBase\javafx-graphics\21\javafx-graphics-21-win.jar;$mysql"
 javac -d target\classes --module-path "$mp" --add-modules javafx.controls,javafx.fxml -sourcepath src\main\java (Get-ChildItem src\main\java -Recurse -Filter *.java | % { $_.FullName })
+```
 
-# 2. Copy resources
+### 2. Copy Resources
+
+```powershell
 Copy-Item src\main\resources\* target\classes -Recurse -Force
+```
 
-# 3. Run
+### 3. Run
+
+```powershell
 java --module-path "$mp;target\classes" --add-modules javafx.controls,javafx.fxml -m com.researchpapers/com.researchpapers.Main
 ```
 
