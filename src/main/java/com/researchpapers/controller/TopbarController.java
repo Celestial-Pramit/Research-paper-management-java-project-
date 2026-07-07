@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 
 public class TopbarController {
 
@@ -13,7 +14,7 @@ public class TopbarController {
     @FXML public Label lblUserRole;
     @FXML public Label lblAvatarInitials;
     @FXML public Button btnNotification;
-    @FXML public Button btnRoleDropdown;
+    @FXML public MenuButton btnRoleDropdown;
 
     @FXML
     public void initialize() {
@@ -26,7 +27,11 @@ public class TopbarController {
         AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Notifications", "Notification features will be available in a future update.");
     }
 
-    @FXML public void roleDropdownEvent() {
+    @FXML public void switchToUser() {
+        AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Role Switcher", "Role switching features will be available in a future update.");
+    }
+
+    @FXML public void switchToAdmin() {
         AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Role Switcher", "Role switching features will be available in a future update.");
     }
 

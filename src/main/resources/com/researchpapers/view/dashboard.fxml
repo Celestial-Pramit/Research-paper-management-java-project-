@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.SVGPath?>
 
 <AnchorPane
     xmlns="http://javafx.com/javafx/21"
@@ -32,9 +33,9 @@
           AnchorPane.leftAnchor="0">
 
         <!-- Branding -->
-        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="sidebar-branding">
+        <HBox alignment="CENTER" spacing="8" styleClass="sidebar-branding">
             <StackPane styleClass="brand-icon-box">
-                <Label text="RP" styleClass="brand-icon-text" />
+                <SVGPath content="M7 3h8l6 6v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM15 3v6h6" fill="white" />
             </StackPane>
             <Label text="RPMS" styleClass="brand-label" />
         </HBox>

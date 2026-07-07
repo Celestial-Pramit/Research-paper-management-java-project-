@@ -363,9 +363,11 @@
 }
 
 .sidebar-branding {
-    -fx-padding: 16 16 16 20;
+    -fx-padding: 16 0;
     -fx-min-height: 69;
     -fx-spacing: 8;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: rgba(255,255,255,0.1);
 }
 
 .brand-icon-box {
@@ -560,6 +562,24 @@
     -fx-font-weight: bold;
 }
 
+.topbar-brand-stack {
+    -fx-padding: 10 0 0 0;
+}
+
+.topbar-brand-primary {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 0.5px;
+}
+
+.topbar-brand-secondary {
+    -fx-text-fill: #f5a623;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-letter-spacing: 2px;
+}
+
 .notification-dot {
     -fx-background-color: #ff3b30;
     -fx-background-radius: 50%;
@@ -605,11 +625,65 @@
     -fx-font-weight: 500;
 }
 
-.dropdown-chevron {
-    -fx-font-size: 10px;
-    -fx-padding: 2;
-    -fx-min-width: 20;
-    -fx-min-height: 20;
+.role-dropdown {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.15);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 4 10;
+    -fx-min-width: 100;
+    -fx-min-height: 28;
+    -fx-cursor: hand;
+    -fx-arrow-color: #f5a623;
+    -fx-arrow-visible: true;
+}
+
+.role-dropdown:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-border-color: rgba(255,255,255,0.3);
+}
+
+.role-dropdown .label {
+    -fx-text-fill: rgba(255,255,255,0.85);
+}
+
+.role-dropdown .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.role-dropdown .arrow {
+    -fx-background-color: #f5a623;
+}
+
+.role-dropdown-popup {
+    -fx-background-color: #1e2436;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 4);
+}
+
+.role-dropdown-popup .menu-item {
+    -fx-padding: 8 16;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.7);
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.role-dropdown-popup .menu-item:hover {
+    -fx-background-color: rgba(245,166,35,0.15);
+    -fx-text-fill: #f5a623;
+    -fx-background-radius: 4;
+}
+
+.role-dropdown-popup .menu-item:focused {
+    -fx-background-color: rgba(245,166,35,0.15);
+    -fx-text-fill: #f5a623;
 }
 
 /* ── Main Content ── */
